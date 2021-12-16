@@ -85,7 +85,7 @@ right_col.dataframe(dfC[["Nama Negara", "produksi"]][:B])
 
 # IMPLEMENTASI FITUR D
 # Summary
-stl.subheader("SUMMARY")
+stl.subheader("Ringkasan")
 # nama lengkap negara, kode negara, region, dan sub-region
 # 1. Terbesar pada tahun T dan keseluruhan tahun
 # 2. Terkecil tapi > 0 pada tahun T dan keseluruhan Tahun
