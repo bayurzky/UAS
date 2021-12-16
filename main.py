@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 import json
-import streamlit as stl
+import streamlit as st
 
 # Opening Data Set produksi_minyak_mentah.csv
 df = pd.read_csv("produksi_minyak_mentah.csv")
@@ -13,12 +13,12 @@ info_negara = json.load(f)
 f.close()
 
 # TITLE
-stl.set_page_config(layout="wide")
-stl.title("Pengolahan Data Produksi Minyak Mentah")
-stl.markdown("*Dibuat oleh : Muhamad Bayu Rizky Kautsar*")
+st.set_page_config(layout="wide")
+st.title("Pengolahan Data Produksi Minyak Mentah")
+st.markdown("*Dibuat oleh : Muhamad Bayu Rizky Kautsar*")
 
-# USER INPUT and CONTROL PANEL
-stl.sidebar.subheader("Pengaturan Konfigurasi Pengolahan Data")
+# USER INPUT
+st.sidebar.subheader("Pengaturan Konfigurasi Pengolahan Data")
 # Get kode_negara_unik
 kode_negara_unik = df["kode_negara"].unique().tolist()
 # Get dict_info {kode_negara: info_negara}
@@ -44,12 +44,12 @@ for kode in kode_negara_unik:
 # Get list_tahun
 list_tahun = df["tahun"].unique().tolist()
 
-N = stl.sidebar.selectbox("Pilih Negara", list_nama_negara)
-T = stl.sidebar.selectbox("Pilih Tahun", list_tahun)
-B = stl.sidebar.number_input("Jumlah Negara yang Ingin Ditampilkan", min_value=1, max_value=len(list_nama_negara), value=10)
+N = st.sidebar.selectbox("Pilih Negara", list_nama_negara)
+T = st.sidebar.selectbox("Pilih Tahun", list_tahun)
+B = st.sidebar.number_input("Jumlah Negara yang Ingin Ditampilkan", min_value=1, max_value=len(list_nama_negara), value=10)
 
 # IMPLEMENTASI FITUR A
-stl.subheader(f"Grafik Jumlah Produksi Minyak Mentah Negara {N}")
+st.subheader(f"Grafik Jumlah Produksi Minyak Mentah Negara {N}")
 dfN = df.loc[df["kode_negara"] == dict_nama_negara[N]]
 dfN = dfN.sort_values(["tahun"], ascending = [True])
 # MENAMPILKAN BAR CHART KE LAYAR
@@ -62,7 +62,7 @@ ax.set_ylabel("Tahun", fontsize=12)
 ax.set_xlabel("Total Produksi", fontsize=12)
 plt.tight_layout()
 
-stl.pyplot(fig)
+st.pyplot(fig)
 
 left_col, right_col = stl.columns(2)
 # IMPLEMENTASI FITUR B
@@ -85,7 +85,7 @@ right_col.dataframe(dfC[["Nama Negara", "produksi"]][:B])
 
 # IMPLEMENTASI FITUR D
 # Summary
-stl.subheader("Ringkasan")
+st.subheader("Ringkasan")
 
 # Kode negara dengan produksi terbesar pada tahun T (d11)
 d11 = dfB["kode_negara"][1]
@@ -110,9 +110,9 @@ df32 = dfC[dfC["produksi"] == 0]
 df32.index = np.arange(1, len(df32)+1)
 d32 = df32["kode_negara"][1]
 
-stl.markdown(f'**Negara dengan jumlah produksi terbesar pada tahun {T}          : ** \n Nama Negara: {dict_info[d11]["name"]}, Kode Negara: {d11}, Region: {dict_info[d11]["region"]}, Sub-region: {dict_info[d11]["sub-region"]}, Dengan Jumlah Produksi ({dfB["produksi"][1]:.2f})')
-stl.markdown(f'**Negara dengan jumlah produksi kumulatif terbesar               : ** \n Nama Negara: {dict_info[d12]["name"]}, Kode Negara: {d12}, Region: {dict_info[d12]["region"]}, Sub-region: {dict_info[d12]["sub-region"]}, Dengan Jumlah Produksi ({dfC["produksi"][1]:.2f})')
-stl.markdown(f'**Negara dengan jumlah produksi terkecil (>0) pada tahun {T}     : ** \n Nama Negara: {dict_info[d21]["name"]}, Kode Negara: {d21}, Region: {dict_info[d21]["region"]}, Sub-region: {dict_info[d21]["sub-region"]}, Dengan Jumlah Produksi ({df21["produksi"][1]:.2f})')
-stl.markdown(f'**Negara dengan jumlah produksi kumulatif terkecil (>0)          : ** \n Nama Negara: {dict_info[d22]["name"]}, Kode Negara: {d22}, Region: {dict_info[d22]["region"]}, Sub-region: {dict_info[d22]["sub-region"]}, Dengan Jumlah Produksi ({df22["produksi"][1]:.2f})')
-stl.markdown(f'**Negara dengan jumlah produksi sama dengan nol pada tahun {T}   : ** \n Nama Negara: {dict_info[d31]["name"]}, Kode Negara: {d31}, Region: {dict_info[d31]["region"]}, Sub-region: {dict_info[d31]["sub-region"]}, Dengan Jumlah Produksi ({df31["produksi"][1]:.2f})')
-stl.markdown(f'**Negara dengan jumlah produksi kumulatif sama dengan nol        : ** \n Nama Negara: {dict_info[d32]["name"]}, Kode Negara: {d32}, Region: {dict_info[d32]["region"]}, Sub-region: {dict_info[d32]["sub-region"]}, Dengan Jumlah Produksi ({df32["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi terbesar pada tahun {T}          : ** \n Nama Negara: {dict_info[d11]["name"]}, Kode Negara: {d11}, Region: {dict_info[d11]["region"]}, Sub-region: {dict_info[d11]["sub-region"]}, Dengan Jumlah Produksi ({dfB["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi kumulatif terbesar               : ** \n Nama Negara: {dict_info[d12]["name"]}, Kode Negara: {d12}, Region: {dict_info[d12]["region"]}, Sub-region: {dict_info[d12]["sub-region"]}, Dengan Jumlah Produksi ({dfC["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi terkecil (>0) pada tahun {T}     : ** \n Nama Negara: {dict_info[d21]["name"]}, Kode Negara: {d21}, Region: {dict_info[d21]["region"]}, Sub-region: {dict_info[d21]["sub-region"]}, Dengan Jumlah Produksi ({df21["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi kumulatif terkecil (>0)          : ** \n Nama Negara: {dict_info[d22]["name"]}, Kode Negara: {d22}, Region: {dict_info[d22]["region"]}, Sub-region: {dict_info[d22]["sub-region"]}, Dengan Jumlah Produksi ({df22["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi sama dengan nol pada tahun {T}   : ** \n Nama Negara: {dict_info[d31]["name"]}, Kode Negara: {d31}, Region: {dict_info[d31]["region"]}, Sub-region: {dict_info[d31]["sub-region"]}, Dengan Jumlah Produksi ({df31["produksi"][1]:.2f})')
+st.markdown(f'**Negara dengan jumlah produksi kumulatif sama dengan nol        : ** \n Nama Negara: {dict_info[d32]["name"]}, Kode Negara: {d32}, Region: {dict_info[d32]["region"]}, Sub-region: {dict_info[d32]["sub-region"]}, Dengan Jumlah Produksi ({df32["produksi"][1]:.2f})')
