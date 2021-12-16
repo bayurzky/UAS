@@ -17,9 +17,6 @@ stl.set_page_config(layout="wide")
 stl.title("Pengolahan Data Produksi Minyak Mentah")
 stl.markdown("*Dibuat oleh : Muhamad Bayu Rizky Kautsar*")
 
-# SIDEBAR
-stl.sidebar.title("Setting")
-
 # USER INPUT and CONTROL PANEL
 stl.sidebar.subheader("Pengaturan Konfigurasi Pengolahan Data")
 # Get kode_negara_unik
