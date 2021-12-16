@@ -64,7 +64,7 @@ plt.tight_layout()
 
 st.pyplot(fig)
 
-left_col, right_col = stl.columns(2)
+left_col, right_col = st.columns(2)
 # IMPLEMENTASI FITUR B
 left_col.subheader(f"{B} Besar Negara dengan Jumlah Produksi Minyak Mentah Terbesar Pada Tahun {T}")
 dfB = df[df["tahun"] == T]
