@@ -26,7 +26,7 @@ kode_negara_unik = df["kode_negara"].unique().tolist()
 dict_info = {}
 for info in info_negara:
     dict_info[info["alpha-3"]] = info
-# Preprocessing kode_negara
+
 # Meng-exclude kode negara pada file produksi_minyak_mentah.csv yang tidak ada pada file kode_negara_lengkap.json
 temp_kode_negara_unik = []
 for kode in kode_negara_unik:
@@ -65,6 +65,7 @@ plt.tight_layout()
 st.pyplot(fig)
 
 left_col, right_col = st.columns(2)
+
 # IMPLEMENTASI FITUR B
 left_col.subheader(f"{B} Besar Negara dengan Jumlah Produksi Minyak Mentah Terbesar Pada Tahun {T}")
 dfB = df[df["tahun"] == T]
@@ -84,7 +85,7 @@ dfC.index = np.arange(1, len(dfC)+1)
 right_col.dataframe(dfC[["Nama Negara", "produksi"]][:B])
 
 # IMPLEMENTASI FITUR D
-# Summary
+# Ringkasan
 st.subheader("Ringkasan")
 
 # Kode negara dengan produksi terbesar pada tahun T (d11)
